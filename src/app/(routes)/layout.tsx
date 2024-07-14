@@ -4,7 +4,7 @@ import { Box, styled } from "@mui/material";
 export const dynamic = "force-dynamic";
 import Header from "../_components/layout/Header";
 import Sidebar from "../_components/layout/Sidebar";
-import DrawerHeader from "../_components/layout/DraweHeader";
+import DrawerHeader from "../_components/layout/DrawerHeader";
 const drawerWidth = 240;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })<{
   open?: boolean;
