@@ -121,7 +121,7 @@ const Header = ({ handleDrawerOpen, open }: Props) => {
               onClick={async () => {
                 //const response = await dispatch(signOut());
                 //if (response.meta.requestStatus === "fulfilled")
-                  router.push("/login");
+                  //router.push("/login");
               }}
             >
               Logout

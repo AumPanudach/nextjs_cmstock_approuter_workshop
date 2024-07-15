@@ -44,10 +44,8 @@ export default function Defaultlayout({ children }: Props) {
         <Header open={open} handleDrawerOpen={handleDrawerOpen} />
         <Sidebar open={open} handleDrawerClose={handleDrawerClose} />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Main open={open}>
-            <DrawerHeader />
-            {children}
-          </Main>
+          <DrawerHeader />
+          {children}
         </Box>
       </Box>
     </section>
