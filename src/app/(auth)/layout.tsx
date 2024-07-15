@@ -1,4 +1,5 @@
 "use client";
+
 export const AuthLayout = ({
   children, // will be a page or nested layout
 }: {
