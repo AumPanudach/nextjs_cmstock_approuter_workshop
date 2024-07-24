@@ -100,6 +100,7 @@ export default function Register({}: Props) {
           fullWidth
           variant="contained"
           color="primary"
+          disabled={reducer.status == "fetching"}
         >
           Create
         </Button>
