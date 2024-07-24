@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { add, signUp, userSelector } from "@/store/slices/userSlice";
 import { useAppDispatch } from "@/store/store";
+import Alert from '@mui/material/Alert';
 type Props = {};
 
 interface User {
@@ -40,8 +41,13 @@ export default function Register({}: Props) {
   });
   const showForm = () => {
     return (
-      <form onSubmit={handleSubmit((value : User) => {
-        dispatch(signUp(value));
+      <form onSubmit={handleSubmit(async (value : User) => {
+       const result = await dispatch(signUp(value));
+       if(signUp.fulfilled.match(result)){
+        alert("This is a register success")
+       }else if(signUp.rejected.match(result)){
+        alert("This is a register failed")
+       }
       })}>
         {/*Username*/}
         <Controller
@@ -80,6 +86,7 @@ export default function Register({}: Props) {
               helperText={errors.password?.message?.toString()}
               variant="outlined"
               margin="normal"
+              type="password"
               fullWidth
               InputProps={{
                 startAdornment: (
@@ -94,6 +101,9 @@ export default function Register({}: Props) {
             />
           )}
         />
+        { reducer.status == "failed" && (
+          <Alert severity="error">This is an error Alert.</Alert>
+        )}
         <Button
           className="mt-8"
           type="submit"

@@ -16,8 +16,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { add, userSelector } from "@/store/slices/userSlice";
+import { add, signIn, userSelector } from "@/store/slices/userSlice";
 import { useAppDispatch } from "@/store/store";
+import Alert from '@mui/material/Alert';
 type Props = {};
 
 interface User {
@@ -40,8 +41,13 @@ export default function Login({}: Props) {
   const reducer = useSelector(userSelector);
   const showForm = () => {
     return (
-      <form onSubmit={handleSubmit((value : User) => {
-        alert(JSON.stringify(value))
+      <form onSubmit={handleSubmit(async (value : User) => {
+        const result = await dispatch(signIn(value));
+        if(signIn.fulfilled.match(result)){
+         alert("This is a Login success")
+        }else if(signIn.rejected.match(result)){
+          //alert("This is a Login failed")
+        }
       })}>
         {/*Username*/}
         <Controller
@@ -80,6 +86,7 @@ export default function Login({}: Props) {
               helperText={errors.password?.message?.toString()}
               variant="outlined"
               margin="normal"
+              type="password"
               fullWidth
               InputProps={{
                 startAdornment: (
@@ -94,14 +101,20 @@ export default function Login({}: Props) {
             />
           )}
         />
+        { reducer.status == "failed" && (
+          <Alert severity="error">This is an error login.</Alert>
+        )}
         <Button
           className="mt-8"
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
+          disabled = {
+            reducer.status == "fetching"
+          }
         >
-          Create
+          Login
         </Button>
 
         <Button
