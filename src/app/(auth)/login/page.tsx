@@ -45,8 +45,6 @@ export default function Login({}: Props) {
         const result = await dispatch(signIn(value));
         if(signIn.fulfilled.match(result)){
          alert("This is a Login success")
-        }else if(signIn.rejected.match(result)){
-          //alert("This is a Login failed")
         }
       })}>
         {/*Username*/}

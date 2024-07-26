@@ -7,14 +7,23 @@ type signProps = {
 };
 
 export const signUp = async (user: signProps): Promise<SignUp> => {
-  const response = await httpClient.post<any>("/authen/register", user);
+  const response = await httpClient.post<SignUp>("/authen/register", user);
   return response.data;
 };
 
+//export const signIn = async (user: signProps): Promise<SignIn> => {
+//  const response = await httpClient.post<SignIn>("/auth/signin",user,
+//  {
+//    baseURL:process.env.NEXT_PUBLIC_BASE_URL_LOCAL_API
+//  });
+//  return response.data;
+//}
+
 export const signIn = async (user: signProps): Promise<SignIn> => {
-  const response = await httpClient.post<SignIn>("/auth/signin",user,
-  {
-    baseURL:process.env.NEXT_PUBLIC_BASE_URL_LOCAL_API
+  const response = await httpClient.post<SignIn>(`/auth/signin`, user, {
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL_LOCAL_API,
   });
+
   return response.data;
-}
+};
+
