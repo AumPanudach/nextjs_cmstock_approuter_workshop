@@ -1,5 +1,5 @@
 ### Login 
-POST http://localhost:8085/api/v2/authen/login HTTP/1.1
+POST http://localhost:3000/api/auth/signin HTTP/1.1
 Content-Type: application/json
 
 {
@@ -29,4 +29,14 @@ Content-Type: application/json
 {
     "username": "adminadmin2",
     "password" : "12345"
+}
+
+//TEST NEW API USEING APPROUTER
+
+POST http://localhost:3000/api/auth/signin HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password" : "1234"
 }

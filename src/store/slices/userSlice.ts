@@ -37,6 +37,7 @@ export const signIn = createAsyncThunk("user/signin", async (user: SignAction) =
   // send username and password to backend
   await new Promise((resolve) => setTimeout(resolve,1000)); 
   const response = await serverService.signIn(user);
+  debugger;
   return response;
 });
 
