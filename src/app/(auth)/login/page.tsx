@@ -44,7 +44,7 @@ export default function Login({}: Props) {
       <form onSubmit={handleSubmit(async (value : User) => {
         const result = await dispatch(signIn(value));
         if(signIn.fulfilled.match(result)){
-         alert("This is a Login success")
+          router.push("/stock")
         }
       })}>
         {/*Username*/}
