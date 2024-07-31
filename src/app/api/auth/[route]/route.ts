@@ -45,32 +45,32 @@ async function signin(body: {
     const { token } = response.data;
     cookies().set(ACCESS_TOKEN_KEY, token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== "development",
+      secure: process.env.NODE_ENV === 'production',
       sameSite: "strict",
       path: "/",
     });
-    console.log("Debug: "+ JSON.stringify(response.data));
+    
     return NextResponse.json(response.data);
   } catch (error: any) {
     return NextResponse.json({ result: "nok" });
   }
 }
 
-async function getSession(req:NextRequest){
-    try{
-        const cookieStore = cookies();
-        const accessTokenKey = cookieStore.get(ACCESS_TOKEN_KEY);
-        if(!!accessTokenKey?.value){
-            const response = await httpClient.get('/authen/profile',{
-                headers:{Authorization: `Bearer ${accessTokenKey?.value}`}
-            });
-            return NextResponse.json(response.data);
-        }else{
-            return NextResponse.json({result:"nok"});
-        }
-    }catch(error){
-        return NextResponse.json({result:"nok"});
+async function getSession(req: NextRequest) {
+  try {
+    const cookieStore = cookies();
+    const accessTokenKey = cookieStore.get(ACCESS_TOKEN_KEY);
+    if (!!accessTokenKey?.value) {
+      const response = await httpClient.get(`/authen/profile`, {
+        headers: { Authorization: `Bearer ${accessTokenKey?.value}` },
+      });
+      return NextResponse.json(response.data);
+    } else {
+      return NextResponse.json({ result: "nok" });
     }
+  } catch (error) {
+    return NextResponse.json({ result: "nok" });
+  }
 }
 
 function signout(request:NextRequest){
